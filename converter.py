@@ -227,9 +227,12 @@ while True:
                 print(f"Channel {channel_id} URL is not start from igmp://, ignored")
                 continue
             channel_support_timeshift = channel.get("timeShift", False)
-            channel_rtsp_url = channel.get("timeShiftURL", "")
-            if not channel_rtsp_url.startswith("rtsp://"):
-                channel_rtsp_url = None
+            channel_rtsp_url = channel.get("timeShiftURL", None)
+            if channel_rtsp_url is not None:
+                if channel_rtsp_url.startswith("rtsp://1.1.1.1"):
+                    channel_rtsp_url = None
+                elif not channel_rtsp_url.startswith("rtsp://"):
+                    channel_rtsp_url = None
             channel_name = channel["channelName"].strip()
             channel_timeshift = channel.get("timeShift", False)
             zz_playlist.append({
